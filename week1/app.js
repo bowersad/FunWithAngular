@@ -5,12 +5,9 @@ angular.module('LunchCheck', [])
 .controller('LunchCheckController', function ($scope, $injector) {
 	$scope.lunch = "";
 	$scope.evaluation = "Press 'Check If Too Much' button to Evaluate";
-	console.log($scope.evaluation);
 
 	$scope.evaluate = function () {
 		$scope.evaluation = EvaluateLunch($scope.lunch);
-		
-		console.log($scope.lunch);
 	};
 
 	function EvaluateLunch(lunch)
