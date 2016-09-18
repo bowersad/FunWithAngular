@@ -1,11 +1,44 @@
 (function () {
 'use strict';
 
-angular.module('Assignment1App', [])
-.controller('Assignment1Controller', Assignment1Controller);
+angular.module('LunchCheck', [])
+.controller('LunchCheckController', function ($scope, $injector) {
+	$scope.lunch = "";
+	$scope.evaluation = "Press 'Check If Too Much' button to Evaluate";
+	console.log($scope.evaluation);
 
-function Assignment1Controlller () {
-	
-}
+	$scope.evaluate = function () {
+		$scope.evaluation = EvaluateLunch($scope.lunch);
+		
+		console.log($scope.lunch);
+	};
+
+	function EvaluateLunch(lunch)
+	{
+		var evaluation;
+
+		if (lunch == "")
+		{
+			evaluation = "Please enter data first";
+		}		
+		else
+		{
+			var lunchList = lunch.split(",");
+			console.log(lunchList.length);
+			if (lunchList.length <= 3)
+			{
+				evaluation = "Enjoy!";
+			}
+			else
+			{
+				evaluation = "Too Much";
+			}
+		}
+
+		return evaluation
+	}
+});
+
+
 
 })();
