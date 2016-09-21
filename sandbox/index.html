@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="bootstrap.min.css">			
+		<title>Sandbox</title>	
+	</head>
+	<body ng-app="AngApp">
+		<div ng-controller="AngAppController">
+			Please enter a commas seperated list of items in your lunch:
+			<input type="text" size="100" ng-model="lunch"/>
+			<div>{{evaluation}}</div>			
+			<button ng-click="evaluate();">Check If Too Much</button>
+		</div>
+	</body>
+	<script type="text/javascript" src="angular.min.js"></script>
+	<script type="text/javascript" src="app.js"></script>		
+</html>
