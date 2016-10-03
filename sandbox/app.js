@@ -2,40 +2,37 @@
 'use strict';
 
 angular.module('AngApp', [])
-.controller('AngAppController', AngAppController);
+.controller('AngAppController', AngAppController)
+.filter('loves', LovesFilter);
 
-AngAppController.$inject = ['$scope'];
-function AngAppController($scope) {
-	$scope.lunch = "";
-	$scope.evaluation = "Press 'Check If Too Much' button to Evaluate";
+AngAppController.$inject = ['$scope','lovesFilter'];
+function AngAppController($scope,lovesFilter) {
+	$scope.message = "Press 'Check If Too Much' button to Evaluate";
 
 	$scope.evaluate = function () {
-		$scope.evaluation = EvaluateLunch($scope.lunch);
+		$scope.evaluation = sayMessage();		
 	};
 
-	function EvaluateLunch(lunch)
+
+
+	$scope.sayMessage = function()
 	{
-		var evaluation;
+		return $scope.message;
+	};
 
-		if (lunch == "")
-		{
-			evaluation = "Please enter data first";
-		}		
-		else
-		{
-			var lunchList = lunch.split(",");
-			console.log(lunchList.length);
-			if (lunchList.length <= 3)
-			{
-				evaluation = "Enjoy!";
-			}
-			else
-			{
-				evaluation = "Too Much";
-			}
-		}
+	$scope.sayLovesMessage = function()
+	{
+		return lovesFilter("I likes this");
+	};	
+}
 
-		return evaluation
+
+function LovesFilter()
+{
+	return function (input) {
+		input = input || "";
+		input = input.replace("likes","loves")
+		return input;
 	};
 }
 
