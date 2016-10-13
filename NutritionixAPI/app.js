@@ -4,10 +4,41 @@
 angular.module('NutritionixApp',[])
 .controller('NutritionixController',NutritionixController)
 .service('NutritionixService',NutritionixService)
-.constant('NutritionixRootPath','https://api.nutritionix.com/v1_1/search/');
+.constant('NutritionixRootPath','https://api.nutritionix.com/v1_1');
 
-function NutritionixController() {
+NutritionixController.$inject = ['NutritionixService'];
+function NutritionixController(NutritionixService) {
+	var app = this;
 
+	var promise = NutritionixService.GetItembyID("513fc9cb673c4fbc2600536a");
+
+	promise.then(function (response) {
+		console.log(response.data);
+		app.fooditem = response.data;
+		console.log(app.fooditem)
+	})
+	.catch(function (error) {
+		console.log(error)
+	});
+};
+
+NutritionixService.$inject = ['$http','NutritionixRootPath']
+function NutritionixService($http,NutritionixRootPath) {
+	var service = this;
+
+	service.GetItembyID = function(itemId) {
+		var response = $http({
+			method : "GET",
+			url : NutritionixRootPath + "/item",
+			params : {
+				id : itemId,
+				appId : "a7342583",
+				appKey : "30aa58fbc7dbc964d1384f9a98bc4b2d"
+			}
+		});
+
+		return response;
+	};
 };
 
 })();
