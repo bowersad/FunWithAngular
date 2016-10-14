@@ -6,9 +6,11 @@
 	<body>
 		<h1>Nutrionix API app</h1>
 		<div ng-controller="NutritionixController as app">
-			<h2>{{app.fooditem.item_name}}</h2>
-			<ul ng-repeat="item in app.fooditem">
-				<li>{{item.name}}</li>
+			<input type="text" ng-model="app.SearchTerm">
+			<button ng-click="app.SearchAPI();">Search</button>
+			<h2>Results</h2>
+			<ul ng-repeat="result in app.ReturnItems.hits">
+				<li>{{result.fields.item_name}}</li>
 			</ul>
 		</div>
 	</body>
