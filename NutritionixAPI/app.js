@@ -33,7 +33,7 @@ function NutritionixController(NutritionixService) {
 		var promise = NutritionixService.SearchItems(app.SearchTerm);
 
 	    promise.then(function (response) {
-	      console.log(response.data);
+	      console.log(response);
 	      app.ReturnItems = response.data;
 	    })
 	    .catch(function (error) {
@@ -65,9 +65,8 @@ function NutritionixService($http,NutritionixRootPath) {
 	service.SearchItems = function(searchTerm) {
 		var response = $http({
 			method : "GET",
-			url : NutritionixRootPath + "/search",
+			url : NutritionixRootPath + "/search/" + searchTerm ,
 			params : {
-				id : searchTerm,
 				appId : "a7342583",
 				appKey : "30aa58fbc7dbc964d1384f9a98bc4b2d"
 			}
