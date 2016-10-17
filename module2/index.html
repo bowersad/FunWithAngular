@@ -7,11 +7,10 @@
 	<body>
 		<div ng-controller="module2controller as menu">
 			<h1>Module 2 Assignment</h1>
-			<ul ng-repeat="category in menu.categories">
-				<li>{{category.name}}:{{category.special_instructions}}</li>
+			<h2>To Buy List</h2>
+			<ul ng-repeat="ListItem in menu.shoppingList.shopping_items">
+				<li>Buy {{ListItem.quantity}} {{ListItem.name}} <button ng-click="">Bought</button></li>
 			</ul>
-
-			<a href="#" ng-click="menu.logMenuItems('B');">B</a>
 		</div>
 		<script type="text/javascript" src="angular.min.js"></script>		
 		<script type="text/javascript" src="app.js"></script>
