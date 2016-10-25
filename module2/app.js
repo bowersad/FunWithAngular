@@ -2,40 +2,44 @@
 'use strict';
 
 angular.module('module2',[])
-.controller('module2controller',module2controller)
-.service('MenuItemService',MenuItemService)
-.constant('MenuItemApiURL','https://davids-restaurant.herokuapp.com')
+.controller('ShoppingListController',ShoppingListController)
+.controller('BuyChildController',BuyChildController)
+.controller('BoughtChildController',BoughtChildController)
+.service('MenuItemService',MenuItemService);
 
-module2controller.$inject = ['MenuItemService']
-function module2controller(MenuItemService) {
+
+
+ShoppingListController.$inject = ['MenuItemService']
+function ShoppingListController(MenuItemService) {
 	var menu = this;
+	menu.parentvalue = 1;
 
 	menu.shoppingList = MenuItemService.getShoppingList();
 	console.log(menu.shoppingList.shopping_items);
 
+	menu.BuyItem = function (ItemID) {
+		var index = array.indexOf(ItemID);
+		console.log(index);
+	};	
+
 };
 
-MenuItemService.$inject = ['$http','MenuItemApiURL'];
-function MenuItemService ($http, MenuItemApiURL) {
-	var service = this;
+function BuyChildController($scope) {
+	var buy = this;
 
-	service.getCategories = function () {
-		var response = $http({
-			method : "GET",
-			url : MenuItemApiURL + "/categories.json"
-		});
-		return response;
-	};
-	service.getMenuItems = function (categoryCode) {
-		var response = $http({
-			method : "GET",
-			url : MenuItemApiURL + "/menu_items.json",
-			params : {
-				category : categoryCode
-			}
-		});
-		return response;
-	};
+};
+
+
+function BoughtChildController($scope) {
+	var bought = this;
+
+	bought.value = 5;
+	console.log("BoughtChildController $scope: ", $scope);
+};
+
+MenuItemService.$inject = ['$http'];
+function MenuItemService ($http) {
+	var service = this;
 
 	service.getShoppingList = function () {
 		return {"shopping_items":[{"id": 1, "name" : "eggs", "quantity" : 12},

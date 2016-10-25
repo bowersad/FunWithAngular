@@ -4,13 +4,16 @@
 		<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
 		<title>Module 2 Assignment</title>
 	</head>
-	<body>
-		<div ng-controller="module2controller as menu">
-			<h1>Module 2 Assignment</h1>
-			<h2>To Buy List</h2>
+	<body ng-controller="ShoppingListController as menu">
+		<div>
+			<div>parentvalue:{{menu.parentvalue}}</div>
 			<ul ng-repeat="ListItem in menu.shoppingList.shopping_items">
-				<li>Buy {{ListItem.quantity}} {{ListItem.name}} <button ng-click="">Bought</button></li>
+				<li>Buy {{ListItem.quantity}} {{ListItem.name}} <button ng-click="menu.BuyItem(ListItem.id);">Bought</button></li>
 			</ul>
+		</div>
+		<div ng-controller="BoughtChildController as bought">
+			<div>parentvalue:{{menu.parentvalue}}</div>
+			<div>chidlvalue:{{bought.value}}</div>			
 		</div>
 		<script type="text/javascript" src="angular.min.js"></script>		
 		<script type="text/javascript" src="app.js"></script>
