@@ -12,14 +12,14 @@
 				<ul ng-repeat="grocery in buy.shoppingList">
 					<li>Buy {{grocery.quantity}} {{grocery.name}} <button ng-click="buy.BuyItem(grocery.name);">Bought</button></li>
 				</ul>
-				<div class="alert alert-error" role="alert" ng-if="buy.AllBought();">Eerything Bought</div>
+				<div class="alert alert-danger" role="alert" ng-if="buy.AllBought();">Everything Bought</div>
 			</div>
 			<div class="col-md-6"  ng-controller="BoughtChildController as bought">
 				<h3>Groceries Already Bought</h3>	
 				<ul ng-repeat="grocery in bought.boughtList">
 					<li>Bought {{grocery.quantity}} {{grocery.name}}</li>
 				</ul>				
-				<div class="alert alert-error" role="alert" ng-if="bought.NoneBought();">Nothing Bought Yet</div>		
+				<div class="alert alert-danger" role="alert" ng-if="bought.NoneBought();">Nothing Bought Yet</div>		
 			</div>
 		</div>
 		<script type="text/javascript" src="angular.min.js"></script>		
