@@ -1,19 +1,26 @@
 <!DOCTYPE html>
-<html ng-app="module2">
+<html ng-app="ShoppingListModule">
 	<head>
 		<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
 		<title>Module 2 Assignment</title>
 	</head>
-	<body ng-controller="ShoppingListController as menu">
-		<div>
-			<div>parentvalue:{{menu.parentvalue}}</div>
-			<ul ng-repeat="ListItem in menu.shoppingList.shopping_items">
-				<li>Buy {{ListItem.quantity}} {{ListItem.name}} <button ng-click="menu.BuyItem(ListItem.id);">Bought</button></li>
-			</ul>
-		</div>
-		<div ng-controller="BoughtChildController as bought">
-			<div>parentvalue:{{menu.parentvalue}}</div>
-			<div>chidlvalue:{{bought.value}}</div>			
+	<body>
+		<h1>Shopping List App</h1>
+		<div class="row">
+			<div class="col-md-6" ng-controller="ToBuyChildController as buy">
+				<h3>Groceries To Buy</h3>
+				<ul ng-repeat="grocery in buy.shoppingList">
+					<li>Buy {{grocery.quantity}} {{grocery.name}} <button ng-click="buy.BuyItem(grocery.name);">Bought</button></li>
+				</ul>
+				<div class="alert alert-error" role="alert" ng-if="buy.AllBought();">Eerything Bought</div>
+			</div>
+			<div class="col-md-6"  ng-controller="BoughtChildController as bought">
+				<h3>Groceries Already Bought</h3>	
+				<ul ng-repeat="grocery in bought.boughtList">
+					<li>Bought {{grocery.quantity}} {{grocery.name}}</li>
+				</ul>				
+				<div class="alert alert-error" role="alert" ng-if="bought.NoneBought();">Nothing Bought Yet</div>		
+			</div>
 		</div>
 		<script type="text/javascript" src="angular.min.js"></script>		
 		<script type="text/javascript" src="app.js"></script>
