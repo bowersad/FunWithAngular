@@ -1,24 +1,24 @@
 (function (){
 'use strict';
 
-angular.module("ResturantMenu",[])
+angular.module('RestaurantMenu')
 .config(RoutesConfig);
 
 RoutesConfig.$inject = ['$stateProvider','$urlRouterProvider']
-function RoutesConfig()
+function RoutesConfig($stateProvider,$urlRouterProvider)
 {
-	$urlRouterProvider.others('/');
+	$urlRouterProvider.otherwise('/');
 
 	$stateProvider
 
 	.state('home', {
 		url: '/',
-		templateUrl: '/templates/home.template.html'
+		templateUrl: 'src/templates/home.template.html'
 	})
 
 	.state('categoryList', {
 		url: '/categories',
-		templateUrl: '/templates/category.template.html'
+		templateUrl: '/src/templates/category.template.html'
 	})
 };
 
