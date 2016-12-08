@@ -10,8 +10,28 @@ NarrowItDownController.$inject = ['NarrowItDownService']
 function NarrowItDownController(NarrowItDownService) {
 	var narrow = this;
 
-	narrow.FindItems = function () {
 
+
+	narrow.FindItems = function (searchTerm) {
+		var promise = NarrowItDownService.GetMenuItems();
+
+		promise.then(function (response) {
+			narrow.AllMenuItems = response.data;
+			console.log(narrow.AllMenuItems);
+			console.log(searchTerm);
+			var x;
+			var item;
+
+			console.log(narrow.AllMenuItems.menu_items[1].description);
+
+			for (x in narrow.AllMenuItems.menu_items) {
+				item = narrow.AllMenuItems.menu_items[x];
+				console.log(item.description);
+				//console.log(narrow.AllMenuItems[x].description.indexOf(searchTerm) !== -1);
+
+			}
+
+		})
 	};
 };
 
