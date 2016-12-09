@@ -9,25 +9,33 @@ angular.module('NarrowItDownApp',[])
 NarrowItDownController.$inject = ['NarrowItDownService']
 function NarrowItDownController(NarrowItDownService) {
 	var narrow = this;
+	var found = [];
 
 
 
-	narrow.FindItems = function (searchTerm) {
+	narrow.FindItems = function () {
 		var promise = NarrowItDownService.GetMenuItems();
+		console.log(narrow.searchTerm);
 
 		promise.then(function (response) {
 			narrow.AllMenuItems = response.data;
 			console.log(narrow.AllMenuItems);
-			console.log(searchTerm);
+
 			var x;
 			var item;
+
 
 			console.log(narrow.AllMenuItems.menu_items[1].description);
 
 			for (x in narrow.AllMenuItems.menu_items) {
 				item = narrow.AllMenuItems.menu_items[x];
-				console.log(item.description);
-				//console.log(narrow.AllMenuItems[x].description.indexOf(searchTerm) !== -1);
+				//console.log(item.description);
+				if (item.description.indexOf(narrow.searchTerm) !== -1) 
+				{
+					found.push(item);
+					console.log(item.description);
+					console.log(found.length);
+				}
 
 			}
 
