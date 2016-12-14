@@ -4,7 +4,26 @@
 angular.module('NarrowItDownApp',[])
 .controller('NarrowItDownController',NarrowItDownController)
 .service('NarrowItDownService',NarrowItDownService)
-.constant('ApiBaseURL','https://davids-restaurant.herokuapp.com');
+.constant('ApiBaseURL','https://davids-restaurant.herokuapp.com')
+.directive('menuitem',MenuItem)
+.directive('menuitemdescription',MenuItemDescription);
+
+function MenuItem() {
+  var ddo = {
+    restrict: "E",
+    templateUrl: 'menuItem.html'
+  };
+
+  return ddo;
+}
+
+function MenuItemDescription() {
+  var ddo = {
+    template: '{{ item.quantity }} of {{ item.name }}'
+  };
+
+  return ddo;
+}
 
 NarrowItDownController.$inject = ['NarrowItDownService']
 function NarrowItDownController(NarrowItDownService) {
@@ -33,12 +52,12 @@ function NarrowItDownController(NarrowItDownService) {
 				if (item.description.indexOf(narrow.searchTerm) !== -1) 
 				{
 					found.push(item);
-					console.log(item.description);
-					console.log(found.length);
+					//console.log(item.description);
+					//console.log(found.length);
 				}
 
 			}
-
+			console.log(found.length);
 		})
 	};
 };

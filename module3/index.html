@@ -15,6 +15,12 @@
     </div>
     <div class="form-group narrow-button">
       <button class="btn btn-primary" ng-click="narrow.FindItems();">Narrow It Down For Me!</button>
+      <ol>
+        <menu-item ng-repeat="item in narrow.AllMenuItems"></menu-item>
+      </ol>   
+      <ol ng-repeat="item in narrow.found">
+        <li>item.Description</li>
+      </ol>   
     </div>
 
     <!-- found-items should be implemented as a component -->

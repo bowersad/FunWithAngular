@@ -9,17 +9,13 @@ function RoutesConfig($stateProvider,$urlRouterProvider)
 {
 	$urlRouterProvider.otherwise('/');
 
-	$stateProvider
-
-	.state('home', {
+	$stateProvider.state('home', {
 		url: '/',
 		templateUrl: 'src/templates/home.template.html'
-	})
-
-	.state('categoryList', {
+	}).state('categoryList', {
 		url: '/categories',
-		templateUrl: '/src/templates/category.template.html'
-	})
+		templateUrl: 'src/templates/category.template.html'
+	});
 };
 
 })();
