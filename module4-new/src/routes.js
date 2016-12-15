@@ -1,7 +1,7 @@
 (function () {
 'use strict';
 
-angular.module('ShoppingList')
+angular.module('RestaurantMenu')
 .config(RoutesConfig);
 
 RoutesConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
@@ -22,7 +22,7 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
   // Premade list page
   .state('categoryList', {
     url: '/categories',
-    templateUrl: 'src/shoppinglist/templates/restuarant-menu.template.html',
+    templateUrl: 'src/shoppinglist/templates/main-categorylist.template.html',
     controller: 'MainShoppingListController as mainList',
     resolve: {
       items: ['ShoppingListService', function (ShoppingListService) {
