@@ -74,8 +74,14 @@ function NarrowItDownService($http,ApiBaseURL) {
 
 		return response;
 	};
-
-
 };
+
+function RestaurantMenuFactory() {
+  var factory = function () {
+    return new NarrowItDownService();
+  };
+
+  return factory;
+}
 
 })();
