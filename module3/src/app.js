@@ -4,6 +4,7 @@
 angular.module('NarrowItDownApp',[])
 .controller('NarrowItDownController',NarrowItDownController)
 .service('NarrowItDownService',NarrowItDownService)
+.factory('RestaurantMenuFactory',RestaurantMenuFactory)
 .constant('ApiBaseURL','https://davids-restaurant.herokuapp.com')
 .directive('menuitem',MenuItem)
 .directive('menuitemdescription',MenuItemDescription);
@@ -25,15 +26,15 @@ function MenuItemDescription() {
   return ddo;
 }
 
-NarrowItDownController.$inject = ['NarrowItDownService']
-function NarrowItDownController(NarrowItDownService) {
+NarrowItDownController.$inject = ['RestaurantMenuFactory']
+function NarrowItDownController(RestaurantMenuFactory) {
 	var narrow = this;
+	var restaurantMenu = RestaurantMenuFactory()
+
 	var found = [];
 
-
-
 	narrow.FindItems = function () {
-		var promise = NarrowItDownService.GetMenuItems();
+		var promise = restaurantMenu.GetMenuItems();
 		console.log(narrow.searchTerm);
 
 		promise.then(function (response) {
