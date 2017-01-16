@@ -3,6 +3,7 @@
 
 angular.module('NarrowItDownApp',[])
 .controller('NarrowItDownController',NarrowItDownController)
+.service('ItemLookUpService',ItemLookUpService)
 .service('NarrowItDownService',NarrowItDownService)
 .factory('RestaurantMenuFactory',RestaurantMenuFactory)
 .constant('ApiBaseURL','https://davids-restaurant.herokuapp.com')
@@ -26,8 +27,8 @@ function MenuItemDescription() {
   return ddo;
 }
 
-NarrowItDownController.$inject = ['RestaurantMenuFactory']
-function NarrowItDownController(RestaurantMenuFactory) {
+NarrowItDownController.$inject = ['RestaurantMenuFactory','NarrowItDownService']
+function NarrowItDownController(RestaurantMenuFactory,NarrowItDownService) {
 	var narrow = this;
 	var restaurantMenu = RestaurantMenuFactory()
 
@@ -40,31 +41,60 @@ function NarrowItDownController(RestaurantMenuFactory) {
 		promise.then(function (response) {
 			narrow.AllMenuItems = response.data;
 			console.log(narrow.AllMenuItems);
+			console.log(narrow.AllMenuItems.menu_items[1].description);
 
 			var x;
 			var item;
 
-
-			console.log(narrow.AllMenuItems.menu_items[1].description);
-
 			for (x in narrow.AllMenuItems.menu_items) {
-				item = narrow.AllMenuItems.menu_items[x];
+				var nextpromise = NarrowItDownService.checkName(narrow.AllMenuItems.menu_items[1].description,narrow.searchTerm);
+				//item = narrow.AllMenuItems.menu_items[x];
 				//console.log(item.description);
-				if (item.description.indexOf(narrow.searchTerm) !== -1) 
-				{
-					found.push(item);
-					//console.log(item.description);
-					//console.log(found.length);
-				}
+				nextpromise.then(function (response) {
+					found.push(narrow.AllMenuItems.menu_items[1].description);					
+				})
+
+				// if (item.description.indexOf(narrow.searchTerm) !== -1) 
+				// {
+				// 	found.push(item);
+				// 	//console.log(item.description);
+				// 	//console.log(found.length);
+				// }
 
 			}
 			console.log(found.length);
 		})
+		console.log(found);
 	};
 };
 
-NarrowItDownService.$inject = ['$http','ApiBaseURL']
-function NarrowItDownService($http,ApiBaseURL) {
+NarrowItDownService.$inject = ['$q','$timeout']
+function NarrowItDownService($q, $timeout) {
+	var service = this;
+
+	service.checkName = function (name,searchTerm) {
+    var deferred = $q.defer();
+
+    var result = {
+      message: ""
+    };
+
+    $timeout(function () {
+      // Check for cookies
+      if (name.toLowerCase().indexOf(searchTerm) === -1) {
+        deferred.resolve(result)
+      }
+      else {
+        result.message = "Not Found";
+        deferred.reject(result);
+      }
+    });
+
+    return deferred.promise;
+  };
+}
+
+function ItemLookUpService($http,ApiBaseURL) {
 	var service = this;
 
 	service.GetMenuItems = function () {
@@ -77,9 +107,10 @@ function NarrowItDownService($http,ApiBaseURL) {
 	};
 };
 
-function RestaurantMenuFactory() {
+RestaurantMenuFactory.$inject = ['$http','ApiBaseURL']
+function RestaurantMenuFactory($http,ApiBaseURL) {
   var factory = function () {
-    return new NarrowItDownService();
+    return new ItemLookUpService($http,ApiBaseURL);
   };
 
   return factory;
