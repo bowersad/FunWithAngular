@@ -33,6 +33,7 @@ function NarrowItDownController(RestaurantMenuFactory,NarrowItDownService) {
 	var restaurantMenu = RestaurantMenuFactory()
 
 	var found = [];
+	found.push("egg");
 
 	narrow.FindItems = function () {
 		var promise = restaurantMenu.GetMenuItems();
@@ -47,20 +48,16 @@ function NarrowItDownController(RestaurantMenuFactory,NarrowItDownService) {
 			var item;
 
 			for (x in narrow.AllMenuItems.menu_items) {
-				var nextpromise = NarrowItDownService.checkName(narrow.AllMenuItems.menu_items[1].description,narrow.searchTerm);
-				//item = narrow.AllMenuItems.menu_items[x];
-				//console.log(item.description);
-				nextpromise.then(function (response) {
-					found.push(narrow.AllMenuItems.menu_items[1].description);					
-				})
+				found.push(narrow.AllMenuItems.menu_items[x].description);
+				// console.log(narrow.searchTerm);				
+				// console.log(narrow.AllMenuItems.menu_items[x].description);
+				// var nextpromise = NarrowItDownService.checkName(narrow.AllMenuItems.menu_items[x].description,narrow.searchTerm);
 
-				// if (item.description.indexOf(narrow.searchTerm) !== -1) 
-				// {
-				// 	found.push(item);
-				// 	//console.log(item.description);
-				// 	//console.log(found.length);
-				// }
-
+				// nextpromise.then(function (result) {
+				// 	found.push(narrow.AllMenuItems.menu_items[x].description);					
+				// }, function (errorReponse) {
+				// 	console.log(errorReponse.message)
+				// });
 			}
 			console.log(found.length);
 		})

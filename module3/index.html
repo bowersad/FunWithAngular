@@ -16,10 +16,10 @@
     <div class="form-group narrow-button">
       <button class="btn btn-primary" ng-click="narrow.FindItems();">Narrow It Down For Me!</button>
       <ol>
-        <menu-item ng-repeat="item in narrow.AllMenuItems"></menu-item>
+        <menu-item ng-repeat="item in narrow.found"></menu-item>
       </ol>   
-      <ol ng-repeat="item in narrow.found">
-        <li>item.Description</li>
+      <ol>
+        <li ng-repeat="item in narrow.found">{{item.Description}}</li>
       </ol>   
     </div>
 
