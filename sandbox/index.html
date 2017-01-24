@@ -1,18 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="AngApp">
 	<head>
-		<link rel="stylesheet" type="text/css" href="bootstrap.min.css">			
-		<title>Sandbox - Filters</title>	
+		<title>Hello AngularJS</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+    	<script src="app.js"></script>
 	</head>
-	<body ng-app="AngApp">
+
+	<body>
 		<div ng-controller="AngAppController">
-			Please enter a commas seperated list of items in your lunch:
-			<input type="text" size="100" ng-model="lunch"/>
-			<div>Original: {{sayMessage()}}</div>			
-			<div>Love Filter: {{sayLovesMessage()}}</div>			
-			<button ng-click="evaluate();">Check If Too Much</button>
+			<p>The ID is {{greeting.id}}</p>
+			<p>The content is {{greeting.content}}</p>
 		</div>
 	</body>
-	<script type="text/javascript" src="angular.min.js"></script>
-	<script type="text/javascript" src="app.js"></script>		
 </html>

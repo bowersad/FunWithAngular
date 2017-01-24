@@ -5,25 +5,12 @@ angular.module('AngApp', [])
 .controller('AngAppController', AngAppController)
 .filter('loves', LovesFilter);
 
-AngAppController.$inject = ['$scope','lovesFilter'];
-function AngAppController($scope,lovesFilter) {
-	$scope.message = "Press 'Check If Too Much' button to Evaluate";
-
-	$scope.evaluate = function () {
-		$scope.evaluation = sayMessage();		
-	};
-
-
-
-	$scope.sayMessage = function()
-	{
-		return $scope.message;
-	};
-
-	$scope.sayLovesMessage = function()
-	{
-		return lovesFilter("I likes this");
-	};	
+AngAppController.$inject = ['$scope','$http'];
+function AngAppController($scope,$http) {
+	$http.get('http://rest-service.guides.spring.io/greeting').
+        then(function(response) {
+            $scope.greeting = response.data;
+        });	
 }
 
 
