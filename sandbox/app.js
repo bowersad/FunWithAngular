@@ -2,27 +2,23 @@
 'use strict';
 
 angular.module('AngApp', [])
-.controller('AngAppController', AngAppController)
-.filter('loves', LovesFilter);
+.controller('AngAppController', AngAppController);
 
 AngAppController.$inject = ['$scope','$http'];
 function AngAppController($scope,$http) {
-	$http.get('http://rest-service.guides.spring.io/greeting').
-        then(function(response) {
-            $scope.greeting = response.data;
-        });	
-}
+	var narrow = this;
 
+	narrow.FindItems = function () {
+		console.log("here");
 
-function LovesFilter()
-{
-	return function (input) {
-		input = input || "";
-		input = input.replace("likes","loves")
-		return input;
+		$http.get('http://rest-service.guides.spring.io/greeting').
+		    then(function(response) {
+		        $scope.greeting = response.data;
+		        console.log(response.data);
+		    });			
 	};
-}
 
+}
 
 
 })();

@@ -1,15 +1,25 @@
 <!DOCTYPE html>
 <html ng-app="AngApp">
-	<head>
-		<title>Hello AngularJS</title>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
-    	<script src="app.js"></script>
-	</head>
+  <head>
+    <title>Narrow Down Your Menu Choice</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+  </head>
 
 	<body>
+
 		<div ng-controller="AngAppController">
+
+			<button class="btn btn-primary" ng-click="AngAppController.FindItems();">Narrow It Down For Me!</button>
+			
 			<p>The ID is {{greeting.id}}</p>
 			<p>The content is {{greeting.content}}</p>
 		</div>
+
+		<script type="text/javascript" src="angular.min.js"></script>
+  		<script type="text/javascript" src="app.js"></script>
 	</body>
+
+
 </html>
