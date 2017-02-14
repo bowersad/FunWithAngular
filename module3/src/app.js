@@ -27,15 +27,31 @@ function MenuItemDescription() {
   return ddo;
 }
 
-NarrowItDownController.$inject = ['RestaurantMenuFactory','NarrowItDownService']
-function NarrowItDownController(RestaurantMenuFactory,NarrowItDownService) {
+NarrowItDownController.$inject = ['RestaurantMenuFactory','NarrowItDownService','$http']
+function NarrowItDownController(RestaurantMenuFactory,NarrowItDownService,$http) {
 	var narrow = this;
 	var restaurantMenu = RestaurantMenuFactory()
 
 	var found = [];
-	found.push("egg");
+	var alsofound = [];
+
+	//found.push("egg");
+	alsofound.push("Cookies");
+	alsofound.push("fun stuff");
+	alsofound.push("coffee");
+	alsofound.push("beer");
+	alsofound.push("bacon");
 
 	narrow.FindItems = function () {
+
+		$http.get('http://rest-service.guides.spring.io/greeting').
+        then(function(response) {
+            narrow.greeting = response.data;
+            console.log(narrow.greeting);
+        });	
+
+            console.log(narrow.greeting);        
+
 		var promise = restaurantMenu.GetMenuItems();
 		console.log(narrow.searchTerm);
 
@@ -48,7 +64,7 @@ function NarrowItDownController(RestaurantMenuFactory,NarrowItDownService) {
 			var item;
 
 			for (x in narrow.AllMenuItems.menu_items) {
-				found.push(narrow.AllMenuItems.menu_items[x].description);
+				found.push(narrow.AllMenuItems.menu_items[x]);
 				// console.log(narrow.searchTerm);				
 				// console.log(narrow.AllMenuItems.menu_items[x].description);
 				// var nextpromise = NarrowItDownService.checkName(narrow.AllMenuItems.menu_items[x].description,narrow.searchTerm);
@@ -60,7 +76,9 @@ function NarrowItDownController(RestaurantMenuFactory,NarrowItDownService) {
 				// });
 			}
 			console.log(found.length);
-		})
+		}, function (errorResponse) {
+      		console.log(errorResponse.message)
+  		});
 		console.log(found);
 	};
 };
